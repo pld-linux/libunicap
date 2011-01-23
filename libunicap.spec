@@ -1,7 +1,3 @@
-#
-# Conditional build:
-%bcond_without	apidocs		# do not build and package API docs
-#
 Summary:	Library to access differend kinds of video capturing devices
 Summary(pl.UTF-8):	Biblioteka dostępu do różnych urządzeń przechwytujących obraz
 Name:		libunicap
