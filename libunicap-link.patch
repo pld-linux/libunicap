@@ -1,0 +1,28 @@
+--- libunicap-0.9.12/src/Makefile.am.orig	2010-05-27 09:21:01.000000000 +0200
++++ libunicap-0.9.12/src/Makefile.am	2012-01-25 19:38:19.599689823 +0100
+@@ -4,9 +4,9 @@
+ lib_LTLIBRARIES = libunicap.la
+ 
+ if ENABLE_STATIC_CPI
+-libunicap_la_LDFLAGS = -version-info @lt_major@:@lt_revision@:@lt_age@ @RT_LIBS@ -static
++libunicap_la_LDFLAGS = -version-info @lt_major@:@lt_revision@:@lt_age@ -static
+ else
+-libunicap_la_LDFLAGS = -version-info @lt_major@:@lt_revision@:@lt_age@ @RT_LIBS@
++libunicap_la_LDFLAGS = -version-info @lt_major@:@lt_revision@:@lt_age@
+ endif
+ 
+ libunicap_la_SOURCES =   \
+@@ -33,11 +33,13 @@
+ 
+ if ENABLE_STATIC_CPI
+ libunicap_la_LIBADD = \
++	@PTHREAD_LIBS@ \
+ 	@DL_LIBS@ \
+ 	@M_LIBS@ \
+ 	../$(LIBV4L2) ../$(LIBV4L) ../$(LIBDCAM) ../$(LIBVID21394)
+ else
+ libunicap_la_LIBADD = \
++	@PTHREAD_LIBS@ \
+ 	@DL_LIBS@ \
+ 	@M_LIBS@
+ endif

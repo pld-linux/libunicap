@@ -1,3 +1,7 @@
+#
+# Conditional build
+%bcond_with	v4l1	# Video4Linux 1 support
+#
 Summary:	Library to access differend kinds of video capturing devices
 Summary(pl.UTF-8):	Biblioteka dostępu do różnych urządzeń przechwytujących obraz
 Name:		libunicap
@@ -8,9 +12,17 @@ Group:		Libraries
 #Source0Download: http://unicap-imaging.org/download.htm
 Source0:	http://unicap-imaging.org/downloads/%{name}-%{version}.tar.gz
 # Source0-md5:	353657b4da519251d4cc6dee5a232391
+Patch0:		%{name}-v4l2.patch
+Patch1:		%{name}-link.patch
 URL:		http://unicap-imaging.org/
+BuildRequires:	autoconf >= 2.59
+BuildRequires:	automake
+BuildRequires:	gettext-devel
 BuildRequires:	gtk-doc >= 1.4
+BuildRequires:	intltool >= 0.35.0
+%{?with_v4l1:BuildRequires:	linux-libc-headers < 7:2.6.38}
 BuildRequires:	libraw1394-devel >= 1.1.0
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -78,10 +90,18 @@ Reguły udeva dla urządzeń obsługiwanych przez unicap.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
-	--with-html-dir=%{_gtkdocdir}
+	--with-html-dir=%{_gtkdocdir} \
+	%{!?with_v4l1:--disable-v4l}
 %{__make}
 
 %install
@@ -109,7 +129,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/unicap2/cpi
 %attr(755,root,root) %{_libdir}/unicap2/cpi/libdcam.so
 %attr(755,root,root) %{_libdir}/unicap2/cpi/libeuvccam_cpi.so
+%if %{with v4l1}
 %attr(755,root,root) %{_libdir}/unicap2/cpi/libv4l.so
+%endif
 %attr(755,root,root) %{_libdir}/unicap2/cpi/libv4l2cpi.so
 %attr(755,root,root) %{_libdir}/unicap2/cpi/libvid21394.so
 
