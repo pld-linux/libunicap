@@ -17,7 +17,7 @@ Patch1:		%{name}-link.patch
 URL:		http://unicap-imaging.org/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	gtk-doc >= 1.4
 BuildRequires:	intltool >= 0.35.0
 %{?with_v4l1:BuildRequires:	linux-libc-headers < 7:2.6.38}
