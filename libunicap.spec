@@ -1,12 +1,12 @@
 #
 # Conditional build
 %bcond_with	v4l1	# Video4Linux 1 support
-#
+
 Summary:	Library to access differend kinds of video capturing devices
 Summary(pl.UTF-8):	Biblioteka dostępu do różnych urządzeń przechwytujących obraz
 Name:		libunicap
 Version:	0.9.12
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Libraries
 #Source0Download: http://unicap-imaging.org/download.htm
@@ -18,11 +18,13 @@ URL:		http://unicap-imaging.org/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	gettext-tools
+BuildRequires:	glib2-devel
 BuildRequires:	gtk-doc >= 1.4
 BuildRequires:	intltool >= 0.35.0
 %{?with_v4l1:BuildRequires:	linux-libc-headers < 7:2.6.38}
 BuildRequires:	libraw1394-devel >= 1.1.0
 BuildRequires:	libtool
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -106,8 +108,8 @@ Reguły udeva dla urządzeń obsługiwanych przez unicap.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
+	DATADIRNAME=share \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/unicap2/cpi/lib*.{la,a}
