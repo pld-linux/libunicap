@@ -6,7 +6,7 @@ Summary:	Library to access differend kinds of video capturing devices
 Summary(pl.UTF-8):	Biblioteka dostępu do różnych urządzeń przechwytujących obraz
 Name:		libunicap
 Version:	0.9.12
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Libraries
 #Source0Download: http://unicap-imaging.org/download.htm
@@ -21,9 +21,9 @@ BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel
 BuildRequires:	gtk-doc >= 1.4
 BuildRequires:	intltool >= 0.35.0
-%{?with_v4l1:BuildRequires:	linux-libc-headers < 7:2.6.38}
 BuildRequires:	libraw1394-devel >= 1.1.0
 BuildRequires:	libtool
+%{?with_v4l1:BuildRequires:	linux-libc-headers < 7:2.6.38}
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -38,8 +38,8 @@ Video4Linux2 and video-to-firewire converters.
 unicap to biblioteka dostępu do różnych rodzajów urządzeń
 przechwytujących obraz.
 
-Obecnie obsługuje kamery IIDC, Video4Linux, Video4Linux2 oraz
-z interfejsem FireWire.
+Obecnie obsługuje kamery IIDC, Video4Linux, Video4Linux2 oraz z
+interfejsem FireWire.
 
 %package devel
 Summary:	Header files for unicap library
@@ -70,6 +70,9 @@ Summary:	unicap API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki unicap
 Group:		Documentation
 Requires:	gtk-doc-common
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API documentation for unicap library.
